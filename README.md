@@ -1,14 +1,14 @@
 # money-transfer-application
 This is an application to simulate money transfer between two parties. This is built using jersey, jax-rs, jetty.
-Gradle is used for dependency management. 
+Gradle is used for dependency management.
 Java version- 1.8
 jersey- 2.27
 jetty- 9.4.6
 
 ## High-level Components-
 There are three components or layers in the application.
-Most external component is ApiResource.java. This is used for defining the api paths and taking inputs from user or other services
-Middle layer is the service layer for handling all the business logic. E.g.- CreateUserService,DepositMoneyService, MoneyTransferService, GetBalanceService.
+Most external component is ApiResource.java. This is used for defining the api paths and taking inputs from user or other services.
+Middle layer is the service layer for handling all the business logic. E.g.- CreateUserService,DepositMoneyService, MoneyTransferService, GetBalanceService.  
 Repository is defined as the inner most layer to represent data store. Ideally this would be communicating to database, but for our application it uses in-memory Hashmap data structures.
 
 ## Security-
