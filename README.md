@@ -1,5 +1,6 @@
 # money-transfer-application
-This is an application to simulate money transfer between two parties. This is built using jersey, jax-rs, jetty.
+This is an application to simulate money transfer between two parties.\
+This is built using jersey, jax-rs, jetty.\
 Gradle is used for dependency management.\
 Java version- 1.8\
 jersey- 2.27\
