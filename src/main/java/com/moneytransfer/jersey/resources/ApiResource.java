@@ -1,6 +1,8 @@
 package com.moneytransfer.jersey.resources;
 
 import com.moneytransfer.jersey.dto.*;
+import com.moneytransfer.jersey.exceptions.InvalidTransferAmountException;
+import com.moneytransfer.jersey.exceptions.InvalidUserException;
 import com.moneytransfer.jersey.exceptions.UserAlreadyPresentException;
 import com.moneytransfer.jersey.service.CreateUserService;
 import com.moneytransfer.jersey.service.DepositMoneyService;
@@ -40,6 +42,8 @@ public class ApiResource {
         try {
             int transactionId = depositMoneyService.deposit(depositMoneyInputDto);
             return Response.ok().entity(new DepositMoneyOutputDto(transactionId)).build();
+        } catch (InvalidUserException | InvalidTransferAmountException e) {
+            return Response.status(HttpStatus.UNPROCESSABLE_ENTITY_422).entity(e.getMessage()).build();
         } catch (Exception e) {
             return Response.status(HttpStatus.INTERNAL_SERVER_ERROR_500).entity(e.getMessage()).build();
         }
@@ -55,6 +59,8 @@ public class ApiResource {
                     moneyTransferInputDto.getAmount(),
                     moneyTransferInputDto.getDescription());
             return Response.status(HttpStatus.OK_200).entity(new MoneyTransferOutputDto(transactionId)).build();
+        } catch (InvalidUserException | InvalidTransferAmountException e) {
+            return Response.status(HttpStatus.UNPROCESSABLE_ENTITY_422).entity(e.getMessage()).build();
         } catch (Exception e) {
             return Response.status(HttpStatus.INTERNAL_SERVER_ERROR_500).entity(e.getMessage()).build();
         }
@@ -64,11 +70,12 @@ public class ApiResource {
     @GET
     @Path("/get-balance")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getBalance(@QueryParam("userId") int userId){
-        try{
+    public Response getBalance(@QueryParam("userId") int userId) {
+        try {
             double balance = getBalanceService.getBalance(userId);
-            return Response.status(HttpStatus.OK_200).entity(new GerBalanceOutputDto(balance)).build();
-
+            return Response.status(HttpStatus.OK_200).entity(new GetBalanceOutputDto(balance)).build();
+        } catch (InvalidUserException e) {
+            return Response.status(HttpStatus.UNPROCESSABLE_ENTITY_422).entity(e.getMessage()).build();
         } catch (Exception e) {
             return Response.status(HttpStatus.INTERNAL_SERVER_ERROR_500).entity(e.getMessage()).build();
         }

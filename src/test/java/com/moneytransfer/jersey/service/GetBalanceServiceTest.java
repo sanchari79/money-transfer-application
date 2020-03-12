@@ -9,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-public class GetBalanceTest {
+public class GetBalanceServiceTest {
     @InjectMocks
     GetBalanceService getBalanceService = new GetBalanceService();
 

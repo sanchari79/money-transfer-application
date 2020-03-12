@@ -23,7 +23,7 @@ public class MoneyTransferService {
                 description);
         boolean debitSuccess = fromUser.getAccount().debit(transaction);
         if(!debitSuccess){
-            throw new TransactionFailureException();
+            throw new InvalidTransferAmountException();
         }
         boolean creditSuccess = toUser.getAccount().credit(transaction);
         if(!creditSuccess){
